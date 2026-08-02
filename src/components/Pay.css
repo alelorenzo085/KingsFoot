@@ -13,7 +13,7 @@
   margin-top: 1rem;
 }
 
-/* Form section */
+/* Sección del Formulario */
 .pay-form-section {
   flex: 2;
   background: white;
@@ -39,7 +39,7 @@
   gap: 1.2rem;
 }
 
-/* Section titles inside the form */
+/* Títulos de sección dentro del formulario */
 .form-section-title {
   font-size: 1.1rem;
   color: #1a1a2e;
@@ -82,6 +82,8 @@
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
@@ -111,7 +113,7 @@
   cursor: not-allowed;
 }
 
-/* Side summary section */
+/* Sección de Resumen Lateral */
 .pay-summary-section {
   flex: 1;
   background: #f8f9fa;
@@ -145,7 +147,7 @@
   font-size: 0.9rem;
 }
 
-/* Success view */
+/* Vista de Éxito */
 .success-view {
   display: flex;
   justify-content: center;
@@ -159,6 +161,8 @@
   border-radius: 16px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
 }
 
 .success-card h2 {
@@ -179,18 +183,7 @@
   font-style: italic;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .pay-content {
-    flex-direction: column-reverse;
-  }
-  .pay-summary-section {
-    width: 100%;
-    position: static;
-  }
-}
-
-/* Payment error alert */
+/* Alerta de error en el pago */
 .error-alert {
   background-color: #fee2e2;
   color: #991b1b;
@@ -202,14 +195,14 @@
   border-left: 4px solid #dc2626;
 }
 
-/* Label and card brand container */
+/* Contenedor de etiqueta y marca de tarjeta */
 .label-with-brand {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Card brand badges */
+/* Insignias de marcas de tarjetas */
 .card-badge {
   font-size: 0.75rem;
   font-weight: 800;
@@ -220,4 +213,62 @@
 }
 .card-badge.visa { background-color: #1a1f71; }
 .card-badge.mastercard { background-color: #eb001b; }
-.card-badge.american { background-color: #006fcf; } 
+.card-badge.american { background-color: #006fcf; }
+
+/* ==========================================
+   ADAPTACIÓN MULTIPLATAFORMA (Responsive)
+   ========================================== */
+
+/* Tablets (Ancho menor a 900px) */
+@media (max-width: 900px) {
+  .pay-container {
+    padding: 2rem 3%;
+  }
+
+  .pay-content {
+    flex-direction: column-reverse; /* El resumen pasa arriba o abajo, el formulario fluye natural */
+    gap: 2rem;
+  }
+
+  .pay-summary-section {
+    position: static;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pay-form-section {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem;
+  }
+}
+
+/* Móviles (Ancho menor a 600px) */
+@media (max-width: 600px) {
+  .pay-container {
+    padding: 1rem;
+  }
+
+  .pay-form-section {
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
+
+  .pay-form-section h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Apilamos las filas dobles (ej: Correo/Teléfono, Fecha/CVV) en móvil para que no se compriman */
+  .form-row {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .pay-total-amount {
+    font-size: 2.2rem;
+  }
+
+  .success-card {
+    padding: 2rem 1.5rem;
+  }
+}

@@ -133,3 +133,35 @@ body {
 .price { font-size: 1.5rem; font-weight: 800; color: #e94560; }
 .add-button { background-color: white; color: #1a1a2e; border: 2px solid #1a1a2e; padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all 0.2s ease; }
 .add-button:hover { background-color: #1a1a2e; color: white; }
+
+.products-grid {
+  display: grid;
+  /* Por defecto en PC: tantas columnas de 280px como quepan */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* En tablets bajamos un poco el tamaño mínimo */
+@media (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* En móviles hacemos que se vea a 1 o 2 columnas cómodas */
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil queda genial para tienda */
+    gap: 1rem;
+  }
+
+  .product-card {
+    padding: 0.8rem;
+  }
+
+  .product-card img {
+    height: 150px; /* Reducimos altura de la imagen en móvil */
+  }
+}
