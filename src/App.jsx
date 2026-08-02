@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Cart from './components/Cart';
 import Pay from './components/Pay'; // Import the new payment view
@@ -34,7 +34,7 @@ function App() {
     <div className="app-container">
       <header className="navbar">
         <div className="logo" onClick={() => setCurrentView('home')}>
-          <h1><span>⚽</span> KingFoot</h1>
+          <h1><span>⚽</span> KingsFoot</h1>
         </div>
         <div className="cart-widget" onClick={() => setCurrentView('cart')}>
           <span className="cart-icon">🛒</span>
