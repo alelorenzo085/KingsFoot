@@ -13,7 +13,7 @@
   margin-top: 1rem;
 }
 
-/* Sección del Formulario */
+/* Form section */
 .pay-form-section {
   flex: 2;
   background: white;
@@ -39,7 +39,7 @@
   gap: 1.2rem;
 }
 
-/* Títulos de sección dentro del formulario */
+/* Section titles inside the form */
 .form-section-title {
   font-size: 1.1rem;
   color: #1a1a2e;
@@ -113,7 +113,7 @@
   cursor: not-allowed;
 }
 
-/* Sección de Resumen Lateral */
+/* Side summary section */
 .pay-summary-section {
   flex: 1;
   background: #f8f9fa;
@@ -147,7 +147,7 @@
   font-size: 0.9rem;
 }
 
-/* Vista de Éxito */
+/* Success view */
 .success-view {
   display: flex;
   justify-content: center;
@@ -183,7 +183,7 @@
   font-style: italic;
 }
 
-/* Alerta de error en el pago */
+/* Payment error alert */
 .error-alert {
   background-color: #fee2e2;
   color: #991b1b;
@@ -195,14 +195,14 @@
   border-left: 4px solid #dc2626;
 }
 
-/* Contenedor de etiqueta y marca de tarjeta */
+/* Card label and brand container */
 .label-with-brand {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Insignias de marcas de tarjetas */
+/* Card brand badges */
 .card-badge {
   font-size: 0.75rem;
   font-weight: 800;
@@ -219,14 +219,14 @@
    ADAPTACIÓN MULTIPLATAFORMA (Responsive)
    ========================================== */
 
-/* Tablets (Ancho menor a 900px) */
+/* Tablets (under 900px) */
 @media (max-width: 900px) {
   .pay-container {
     padding: 2rem 3%;
   }
 
   .pay-content {
-    flex-direction: column-reverse; /* El resumen pasa arriba o abajo, el formulario fluye natural */
+    flex-direction: column-reverse; /* The summary moves above or below while the form flows naturally */
     gap: 2rem;
   }
 
@@ -243,7 +243,7 @@
   }
 }
 
-/* Móviles (Ancho menor a 600px) */
+/* Mobile (under 600px) */
 @media (max-width: 600px) {
   .pay-container {
     padding: 1rem;
@@ -258,7 +258,7 @@
     font-size: 1.5rem;
   }
 
-  /* Apilamos las filas dobles (ej: Correo/Teléfono, Fecha/CVV) en móvil para que no se compriman */
+  /* Stack the two-column rows on mobile so they do not get cramped */
   .form-row {
     flex-direction: column;
     gap: 1.2rem;

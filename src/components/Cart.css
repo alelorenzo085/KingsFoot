@@ -212,7 +212,7 @@
   top: 2rem;
 }
 
-/* --- TABLETS (Pantallas entre 768px y 1024px) --- */
+/* --- TABLETS (between 768px and 1024px) --- */
 @media (max-width: 1024px) {
   .cart-page-container {
     padding: 2rem 3%;
@@ -223,24 +223,24 @@
   }
 }
 
-/* --- MÓVILES (Pantallas menores de 768px) --- */
+/* --- MOBILE (below 768px) --- */
 @media (max-width: 768px) {
   .cart-page-container {
     padding: 1.5rem 1rem;
   }
 
-  /* Apilamos el contenido en columna: los productos arriba, el resumen abajo */
+  /* Stack the content vertically: products first, summary second */
   .cart-content {
     flex-direction: column;
     gap: 2rem;
   }
 
   .cart-summary-section {
-    position: static; /* Quitamos el sticky en móvil para que fluya natural */
+    position: static; /* Remove sticky behavior on mobile so it flows naturally */
     width: 100%;
   }
 
-  /* Adaptar las tarjetas de productos individuales para móvil */
+  /* Adjust individual product cards for mobile */
   .cart-item {
     flex-direction: row;
     align-items: center;

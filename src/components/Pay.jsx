@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
 import './Pay.css';
 
-/**
- * Checkout form component.
- * Handles shipping details, card formatting and basic payment validation.
- * @param {Object} props - Component props.
- * @param {number} props.totalPrice - Total amount to pay.
- * @param {Function} props.onBack - Returns to the cart view.
- * @param {Function} props.onFinish - Runs after a successful payment.
- */
 function Pay({ totalPrice, onBack, onFinish }) {
-  // Independent states for each information field
+  // Separate state for each form field
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -19,7 +11,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
   const [country, setCountry] = useState('');
   const [phone, setPhone] = useState('');
 
-  // Card states
+  // Card-related state
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
@@ -30,10 +22,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  /**
-   * Formats the card number and detects the card brand while the user types.
-   * @param {React.ChangeEvent<HTMLInputElement>} e - Input event.
-   */
+  // Format the card number and detect the card brand while typing
   const handleCardNumberChange = (e) => {
     let value = e.target.value.replace(/\D/g, ''); // Numbers only
     if (value.length > 16) value = value.slice(0, 16); // Maximum 16 digits
@@ -54,10 +43,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
     }
   };
 
-  /**
-   * Formats the expiry date as MM/YY automatically.
-   * @param {React.ChangeEvent<HTMLInputElement>} e - Input event.
-   */
+  // Format the expiry date as MM/YY automatically
   const handleExpiryChange = (e) => {
     let value = e.target.value.replace(/\D/g, '');
     if (value.length > 4) value = value.slice(0, 4);
@@ -67,11 +53,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
     setExpiry(value);
   };
 
-  /**
-   * Validates a card number using the Luhn algorithm.
-   * @param {string} numStr - Card number without spaces.
-   * @returns {boolean} True when the number passes the checksum test.
-   */
+  // Validate the card number with the Luhn algorithm
   const isValidLuhn = (numStr) => {
     const cleanStr = numStr.replace(/\s+/g, '');
     if (cleanStr.length < 13 || cleanStr.length > 19) return false;
@@ -92,11 +74,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
     return sum % 10 === 0;
   };
 
-  /**
-   * Checks whether the entered card expiry date is still valid.
-   * @param {string} expiryStr - Expiry date in MM/YY format.
-   * @returns {boolean} True when the card is not expired.
-   */
+  // Check whether the expiry date is still valid
   const validateExpiry = (expiryStr) => {
     const parts = expiryStr.split('/');
     if (parts.length !== 2) return false;
@@ -115,10 +93,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
     return true;
   };
 
-  /**
-   * Handles the payment submission, validates the form and simulates a successful payment.
-   * @param {React.FormEvent<HTMLFormElement>} e - Form submit event.
-   */
+  // Handle the payment submission and simulate a successful payment
   const handlePayment = (e) => {
     e.preventDefault();
     setErrorMsg('');

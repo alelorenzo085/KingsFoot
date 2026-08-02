@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
 
-/* Reset and FULLSCREEN LAYOUT */
+/* Reset and full-screen layout */
 html, body, #root {
   width: 100%;
   height: 100%;
@@ -104,14 +104,38 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  flex-grow: 1; /* Makes the content push the footer downward if there is one */
+  flex-grow: 1;
 }
-.section-header { margin-bottom: 3rem; text-align: center; }
-.section-title { font-size: 2.2rem; font-weight: 800; color: #1a1a2e; text-transform: uppercase; }
-.subtitle { color: #64748b; font-size: 1.1rem; margin-top: 0.5rem; display: block; }
-.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2.5rem; }
 
-/* --- CARDS --- */
+.section-header { 
+  margin-bottom: 3rem; 
+  text-align: center; 
+}
+
+.section-title { 
+  font-size: 2.2rem; 
+  font-weight: 800; 
+  color: #1a1a2e; 
+  text-transform: uppercase; 
+  margin: 0;
+}
+
+.subtitle { 
+  color: #64748b; 
+  font-size: 1.1rem; 
+  margin-top: 0.5rem; 
+  display: block; 
+}
+
+/* --- PRODUCT GRID --- */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+  padding: 2rem 0;
+}
+
+/* --- PRODUCT CARDS --- */
 .product-card {
   background-color: white;
   border-radius: 16px;
@@ -121,47 +145,175 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-}
-.product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); }
-.image-container { position: relative; width: 100%; padding-top: 100%; background-color: #f1f5f9; overflow: hidden; }
-.image-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.product-card:hover .image-container img { transform: scale(1.08); }
-.product-tag { position: absolute; top: 15px; left: 15px; background-color: #1a1a2e; color: white; padding: 6px 12px; font-size: 0.75rem; font-weight: 800; border-radius: 4px; z-index: 2; letter-spacing: 1px; }
-.product-info { padding: 1.8rem; display: flex; flex-direction: column; flex-grow: 1; }
-.product-info h4 { font-size: 1.2rem; font-weight: 600; margin-bottom: 1.5rem; color: #0f172a; line-height: 1.4; }
-.purchase-area { margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 1.5rem; }
-.price { font-size: 1.5rem; font-weight: 800; color: #e94560; }
-.add-button { background-color: white; color: #1a1a2e; border: 2px solid #1a1a2e; padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all 0.2s ease; }
-.add-button:hover { background-color: #1a1a2e; color: white; }
-
-.products-grid {
-  display: grid;
-  /* Por defecto en PC: tantas columnas de 280px como quepan */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 2rem 0;
+  border: 1px solid #e2e8f0;
 }
 
-/* En tablets bajamos un poco el tamaño mínimo */
+.product-card:hover { 
+  transform: translateY(-8px); 
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); 
+}
+
+.image-container { 
+  position: relative; 
+  width: 100%; 
+  padding-top: 100%; /* Keeps a square aspect ratio */
+  background-color: #f1f5f9; 
+  overflow: hidden; 
+}
+
+.image-container img { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  transition: transform 0.5s ease; 
+}
+
+.product-card:hover .image-container img { 
+  transform: scale(1.08); 
+}
+
+.product-tag { 
+  position: absolute; 
+  top: 15px; 
+  left: 15px; 
+  background-color: #1a1a2e; 
+  color: white; 
+  padding: 6px 12px; 
+  font-size: 0.75rem; 
+  font-weight: 800; 
+  border-radius: 4px; 
+  z-index: 2; 
+  letter-spacing: 1px; 
+}
+
+.product-info { 
+  padding: 1.8rem; 
+  display: flex; 
+  flex-direction: column; 
+  flex-grow: 1; 
+}
+
+.product-info h4 { 
+  font-size: 1.1rem; 
+  font-weight: 600; 
+  margin-top: 0;
+  margin-bottom: 1.5rem; 
+  color: #0f172a; 
+  line-height: 1.4; 
+}
+
+.purchase-area { 
+  margin-top: auto; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  border-top: 1px solid #f1f5f9; 
+  padding-top: 1.5rem; 
+}
+
+.price { 
+  font-size: 1.4rem; 
+  font-weight: 800; 
+  color: #e94560; 
+}
+
+.add-button { 
+  background-color: white; 
+  color: #1a1a2e; 
+  border: 2px solid #1a1a2e; 
+  padding: 0.6rem 1.2rem; 
+  border-radius: 8px; 
+  font-size: 0.95rem; 
+  font-weight: 800; 
+  cursor: pointer; 
+  transition: all 0.2s ease; 
+}
+
+.add-button:hover { 
+  background-color: #1a1a2e; 
+  color: white; 
+}
+
+
+/* --- TABLETS (up to 1024px) --- */
 @media (max-width: 1024px) {
+  .main-content {
+    padding: 3rem 4%;
+  }
+
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1.5rem;
   }
 }
 
-/* En móviles hacemos que se vea a 1 o 2 columnas cómodas */
+/* --- MOBILE (up to 600px) --- */
 @media (max-width: 600px) {
+  .navbar {
+    padding: 0.8rem 4%;
+  }
+
+  .logo h1 {
+    font-size: 1.2rem;
+  }
+
+  .cart-widget {
+    padding: 0.4rem 0.9rem;
+  }
+
+  .main-content {
+    padding: 1.5rem 3%;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Two-column grid optimized for mobile shopping */
   .products-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil queda genial para tienda */
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+    padding: 1rem 0;
   }
 
-  .product-card {
-    padding: 0.8rem;
+  .product-info {
+    padding: 1rem;
   }
 
-  .product-card img {
-    height: 150px; /* Reducimos altura de la imagen en móvil */
+  .product-info h4 {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Prevents layout issues with long titles */
+  }
+
+  .purchase-area {
+    padding-top: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .price {
+    font-size: 1.1rem;
+  }
+
+  .add-button {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 0.85rem;
+    text-align: center;
   }
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Cart from './components/Cart';
-import Pay from './components/Pay'; // Import the new payment view
+import Pay from './components/Pay'; // Import the payment view
 
 const MOCK_PRODUCTS = [
   { id: 1, name: 'Real Madrid FC 26/27 Local', price: 95, tag: 'TOP VENTAS', image: 'https://us.shop.realmadrid.com/cdn/shop/files/RMCFMZ0941_01-LIGA.jpg?v=1779891682&width=1920' },
@@ -12,18 +12,11 @@ const MOCK_PRODUCTS = [
   { id: 6, name: 'Bayern Munich FC 26/27', price: 80, tag: '', image: 'https://img.fcbayern.com/image/upload/q_auto,f_auto/w_800,h_1067,c_pad/eCommerce/produkte/54804_4' },
 ];
 
-/**
- * Main application component that manages the product catalog, the shopping cart,
- * and the active view between the home, cart, and payment screens.
- */
 function App() {
   const [cart, setCart] = useState([]);
   const [currentView, setCurrentView] = useState('home'); // 'home', 'cart', or 'pay'
 
-  /**
-   * Adds a selected product to the cart.
-   * @param {Object} product - The product to add.
-   */
+  // Add a selected product to the cart
   const addToCart = (product) => {
     setCart([...cart, product]);
   };

@@ -1,18 +1,10 @@
 import React from 'react';
 import './Cart.css';
 
-/**
- * Shopping cart view.
- * @param {Object} props - Component props.
- * @param {Array} props.cart - Products currently added to the cart.
- * @param {Function} props.setCart - Updates the cart state.
- * @param {Function} props.onBack - Returns to the catalog view.
- * @param {Function} props.onCheckout - Moves to the payment step.
- */
 function Cart({ cart, setCart, onBack, onCheckout }) {
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
-  // Remove one specific item from the cart by its index.
+  // Remove one item from the cart by its index
   const removeFromCart = (indexToRemove) => {
     setCart(cart.filter((_, index) => index !== indexToRemove));
   };
