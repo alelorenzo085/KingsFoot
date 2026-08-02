@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+
+/* Reset and FULLSCREEN LAYOUT */
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #1a1a2e;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* --- NAVIGATION --- */
+.navbar {
+  background: rgba(26, 26, 46, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.logo:hover {
+  opacity: 0.8;
+}
+.logo h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.cart-widget {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #e94560;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+.cart-widget:hover { transform: scale(1.05); }
+.cart-icon { font-size: 1.2rem; }
+.cart-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.cart-total { font-size: 1rem; font-weight: 800; }
+
+/* --- HERO --- */
+.hero {
+  background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.8)), 
+              url('https://images.unsplash.com/photo-1518605368461-1e125222058c?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+  height: 40vh;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+  width: 100%;
+}
+.hero-content h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem; letter-spacing: -1px; }
+.hero-content p { font-size: 1.2rem; font-weight: 400; color: #e2e8f0; }
+
+/* --- MAIN CONTENT --- */
+.main-content {
+  padding: 4rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  flex-grow: 1; /* Makes the content push the footer downward if there is one */
+}
+.section-header { margin-bottom: 3rem; text-align: center; }
+.section-title { font-size: 2.2rem; font-weight: 800; color: #1a1a2e; text-transform: uppercase; }
+.subtitle { color: #64748b; font-size: 1.1rem; margin-top: 0.5rem; display: block; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2.5rem; }
+
+/* --- CARDS --- */
+.product-card {
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); }
+.image-container { position: relative; width: 100%; padding-top: 100%; background-color: #f1f5f9; overflow: hidden; }
+.image-container img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.product-card:hover .image-container img { transform: scale(1.08); }
+.product-tag { position: absolute; top: 15px; left: 15px; background-color: #1a1a2e; color: white; padding: 6px 12px; font-size: 0.75rem; font-weight: 800; border-radius: 4px; z-index: 2; letter-spacing: 1px; }
+.product-info { padding: 1.8rem; display: flex; flex-direction: column; flex-grow: 1; }
+.product-info h4 { font-size: 1.2rem; font-weight: 600; margin-bottom: 1.5rem; color: #0f172a; line-height: 1.4; }
+.purchase-area { margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 1.5rem; }
+.price { font-size: 1.5rem; font-weight: 800; color: #e94560; }
+.add-button { background-color: white; color: #1a1a2e; border: 2px solid #1a1a2e; padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.95rem; font-weight: 800; cursor: pointer; transition: all 0.2s ease; }
+.add-button:hover { background-color: #1a1a2e; color: white; }
