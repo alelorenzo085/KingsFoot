@@ -1,6 +1,6 @@
-# KingFoot Store
+# KingFoot
 
-KingFoot Store is a small e-commerce demo built with React and Vite. The idea is simple: browse football shirts, add them to the cart, and go through a sample checkout flow.
+KingFoot is a small e-commerce demo built with React and Vite. The idea is simple: browse football shirts, add them to the cart, and go through a sample checkout flow.
 
 ## What it includes
 
