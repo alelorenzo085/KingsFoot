@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import { Toaster, toast } from 'sonner';
 import './App.css';
 import Cart from './components/Cart';
 import Pay from './components/Pay'; // Import the payment view
-import { CartIcon, PlusIcon } from './components/Icons';
+import { CartIcon, CheckIcon, PlusIcon } from './components/Icons';
+
+// Stable id per cart line, so the same shirt added twice can be animated out individually
+let nextUid = 1;
 
 const MOCK_PRODUCTS = [
   { id: 1, name: 'Real Madrid FC 26/27 Local', price: 95, tag: 'TOP VENTAS', image: 'https://us.shop.realmadrid.com/cdn/shop/files/RMCFMZ0941_01-LIGA.jpg?v=1779891682&width=1920' },
@@ -19,7 +23,15 @@ function App() {
 
   // Add a selected product to the cart
   const addToCart = (product) => {
-    setCart([...cart, product]);
+    const nextCart = [...cart, { ...product, uid: nextUid++ }];
+    setCart(nextCart);
+
+    // One toast that updates in place, so rapid adds don't stack a pile of them
+    toast.success('Añadido al carrito', {
+      id: 'cart-add',
+      description: `${product.name} · ${nextCart.length} ${nextCart.length === 1 ? 'artículo' : 'artículos'}`,
+      action: { label: 'Ver carrito', onClick: () => setCurrentView('cart') },
+    });
   };
 
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
@@ -100,6 +112,14 @@ function App() {
           }}
         />
       )}
+
+      <Toaster
+        theme="dark"
+        position="bottom-right"
+        className="kf-toaster"
+        icons={{ success: <CheckIcon size={16} strokeWidth={3} /> }}
+        toastOptions={{ className: 'kf-toast', duration: 2500 }}
+      />
     </div>
   );
 }

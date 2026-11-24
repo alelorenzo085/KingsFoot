@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Pay.css';
 import { AlertIcon, ArrowLeftIcon, CardIcon, CheckIcon, ShieldIcon, TruckIcon } from './Icons';
+
+const EASE_IN_OUT = 'cubic-bezier(0.77, 0, 0.175, 1)';
 
 function Pay({ totalPrice, onBack, onFinish }) {
   // Separate state for each form field
@@ -20,6 +22,8 @@ function Pay({ totalPrice, onBack, onFinish }) {
   const [cardBrand, setCardBrand] = useState('');
   
   const [errorMsg, setErrorMsg] = useState('');
+  const [errorCount, setErrorCount] = useState(0);
+  const errorRef = useRef(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -94,17 +98,38 @@ function Pay({ totalPrice, onBack, onFinish }) {
     return true;
   };
 
+  // A repeated failed submit shakes the alert that is already on screen,
+  // so the user can tell the form heard them even when the message is the same
+  useEffect(() => {
+    const alert = errorRef.current;
+    if (errorCount < 2 || !alert) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    alert.animate(
+      [
+        { transform: 'translateX(0)' },
+        { transform: 'translateX(-6px)' },
+        { transform: 'translateX(6px)' },
+        { transform: 'translateX(-4px)' },
+        { transform: 'translateX(4px)' },
+        { transform: 'translateX(0)' },
+      ],
+      { duration: 300, easing: EASE_IN_OUT },
+    );
+  }, [errorCount]);
+
   // Handle the payment submission and simulate a successful payment
   const handlePayment = (e) => {
     e.preventDefault();
     setErrorMsg('');
 
     if (!validateExpiry(expiry)) {
+      setErrorCount((c) => c + 1);
       setErrorMsg('La tarjeta está caducada o la fecha introducida es anterior a la actual.');
       return;
     }
 
     if (!isValidLuhn(cardNumber)) {
+      setErrorCount((c) => c + 1);
       setErrorMsg('El número de tarjeta introducido es falso o inválido.');
       return;
     }
@@ -120,21 +145,8 @@ function Pay({ totalPrice, onBack, onFinish }) {
     }, 2000);
   };
 
-  if (isSuccess) {
-    return (
-      <div className="pay-container success-view">
-        <div className="success-card">
-          <span className="success-icon"><CheckIcon size={36} strokeWidth={2.5} /></span>
-          <h2>¡Pago completado con éxito!</h2>
-          <p>Tu tarjeta ha sido verificada correctamente. ¡Pedido en camino!</p>
-          <p className="redirect-text">Redirigiendo al inicio...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="pay-container">
+    <div className="pay-container view">
       <button className="back-button" onClick={onBack}>
         <ArrowLeftIcon size={16} /> Volver al carrito
       </button>
@@ -145,7 +157,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
           <p className="pay-subtitle">Introduce tus datos de envío y pago de forma segura.</p>
 
           {errorMsg && (
-            <div className="error-alert" role="alert">
+            <div className="error-alert" role="alert" ref={errorRef}>
               <AlertIcon size={20} />
               <span>{errorMsg}</span>
             </div>
@@ -294,7 +306,13 @@ function Pay({ totalPrice, onBack, onFinish }) {
               className={`pay-submit-button ${isProcessing ? 'processing' : ''}`}
               disabled={isProcessing}
             >
-              {isProcessing ? 'Verificando con el banco...' : `Pagar ${totalPrice}€`}
+              {isProcessing ? (
+                <>
+                  <span className="spinner" aria-hidden="true" /> Verificando con el banco...
+                </>
+              ) : (
+                `Pagar ${totalPrice}€`
+              )}
             </button>
           </form>
         </div>
@@ -309,6 +327,18 @@ function Pay({ totalPrice, onBack, onFinish }) {
            </div>
         </div>
       </div>
+
+      {/* Success popup over the form */}
+      {isSuccess && (
+        <div className="success-overlay" role="status" aria-live="polite">
+          <div className="success-card">
+            <span className="success-icon"><CheckIcon size={36} strokeWidth={2.5} /></span>
+            <h2>¡Pago completado con éxito!</h2>
+            <p>Tu tarjeta ha sido verificada correctamente. ¡Pedido en camino!</p>
+            <p className="redirect-text">Redirigiendo al inicio...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -94,7 +94,7 @@ export function CardIcon(props) {
 export function CheckIcon(props) {
   return (
     <Icon {...props}>
-      <path d="M5 12.5l4.5 4.5L19 7.5" />
+      <path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1" />
     </Icon>
   );
 }

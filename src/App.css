@@ -6,6 +6,11 @@
   width: 100%;
 }
 
+/* Each view (home / cart / pay) fades in when you navigate to it */
+.view {
+  animation: fade-up 220ms var(--ease-out) backwards;
+}
+
 /* ==========================================
    NAVIGATION
    ========================================== */
@@ -25,9 +30,8 @@
 
 .logo {
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity 150ms ease;
 }
-.logo:hover { opacity: 0.85; }
 
 .logo h1 {
   display: flex;
@@ -46,17 +50,14 @@
   place-items: center;
   width: 38px;
   height: 38px;
-  font-size: 1.15rem;
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 0 4px var(--accent-soft), 0 0 24px var(--accent-glow);
-  transition: transform 0.6s var(--ease);
 }
 .logo h1 span img {
   width: 26px;
   height: 26px;
 }
-.logo:hover h1 span { transform: rotate(360deg); }
 
 .cart-widget {
   display: flex;
@@ -67,12 +68,12 @@
   background: var(--surface);
   border: 1px solid var(--border-strong);
   cursor: pointer;
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s var(--ease);
-}
-.cart-widget:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft);
-  transform: translateY(-1px);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform var(--press) var(--ease-out);
 }
 
 .cart-icon {
@@ -101,6 +102,7 @@
   font-size: 1.05rem;
   font-weight: 800;
   color: var(--accent);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ==========================================
@@ -149,8 +151,16 @@
 
 .hero-content {
   max-width: 980px;
-  animation: fade-up 0.9s var(--ease) both;
 }
+
+/* Hero entrance: badge → headline → copy, one motion with short overlaps */
+.hero-content::before,
+.hero-content h2,
+.hero-content p {
+  animation: fade-up 500ms var(--ease-out) backwards;
+}
+.hero-content h2 { animation-delay: 60ms; }
+.hero-content p { animation-delay: 140ms; }
 
 .hero-content::before {
   content: 'Temporada 26/27';
@@ -250,20 +260,18 @@
   border-radius: var(--radius-lg);
   background: linear-gradient(180deg, var(--surface) 0%, var(--bg-elev) 100%);
   border: 1px solid var(--border);
-  transition: transform 0.4s var(--ease), border-color 0.3s, box-shadow 0.4s var(--ease);
-  animation: fade-up 0.7s var(--ease) both;
+  transition:
+    transform 250ms var(--ease-out),
+    border-color 200ms ease,
+    box-shadow 250ms var(--ease-out);
+  /* Stagger: non-uniform delays, the whole group lands within ~470ms */
+  animation: fade-up 300ms var(--ease-out) backwards;
 }
-.product-card:nth-child(2) { animation-delay: 0.06s; }
-.product-card:nth-child(3) { animation-delay: 0.12s; }
-.product-card:nth-child(4) { animation-delay: 0.18s; }
-.product-card:nth-child(5) { animation-delay: 0.24s; }
-.product-card:nth-child(6) { animation-delay: 0.3s; }
-
-.product-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(212, 255, 58, 0.35);
-  box-shadow: var(--shadow), 0 0 40px -10px var(--accent-glow);
-}
+.product-card:nth-child(2) { animation-delay: 50ms; }
+.product-card:nth-child(3) { animation-delay: 90ms; }
+.product-card:nth-child(4) { animation-delay: 120ms; }
+.product-card:nth-child(5) { animation-delay: 145ms; }
+.product-card:nth-child(6) { animation-delay: 165ms; }
 
 .image-container {
   position: relative;
@@ -278,9 +286,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s var(--ease);
+  transition: transform 400ms var(--ease-out);
 }
-.product-card:hover .image-container img { transform: scale(1.07); }
 
 .product-tag {
   position: absolute;
@@ -343,14 +350,102 @@
   font-size: 0.9rem;
   font-weight: 800;
   cursor: pointer;
-  transition: transform 0.2s var(--ease), box-shadow 0.25s, background-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--press) var(--ease-out),
+    background-color 150ms ease,
+    box-shadow 200ms ease;
 }
-.add-button:hover {
-  background: var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px -6px var(--accent-glow);
+.add-button svg {
+  transition: transform 200ms var(--ease-out);
 }
-.add-button:active { transform: scale(0.96); }
+
+/* ==========================================
+   PRESS FEEDBACK (touch + mouse)
+   ========================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .cart-widget:active,
+  .add-button:active {
+    transform: scale(0.97);
+  }
+}
+
+/* ==========================================
+   HOVER — real pointers only (touch fires false hovers on tap)
+   ========================================== */
+@media (hover: hover) and (pointer: fine) {
+  .logo:hover { opacity: 0.85; }
+
+  .cart-widget:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+
+  .product-card:hover {
+    border-color: rgba(212, 255, 58, 0.35);
+    box-shadow: var(--shadow), 0 0 40px -10px var(--accent-glow);
+  }
+
+  .add-button:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 10px 24px -6px var(--accent-glow);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .product-card:hover { transform: translateY(-6px); }
+    .product-card:hover .image-container img { transform: scale(1.05); }
+    .add-button:hover svg { transform: rotate(90deg); }
+  }
+}
+
+/* ==========================================
+   TOASTS (Sonner) — themed to the store
+   ========================================== */
+.kf-toaster {
+  --normal-bg: var(--surface-2);
+  --normal-border: var(--border-strong);
+  --normal-text: var(--text);
+  --border-radius: 16px;
+  font-family: var(--font-body);
+}
+
+[data-sonner-toaster] .kf-toast {
+  gap: 12px;
+  padding: 14px 14px 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+[data-sonner-toaster] .kf-toast [data-icon] {
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+[data-sonner-toaster] .kf-toast [data-title] {
+  font-weight: 700;
+}
+
+[data-sonner-toaster] .kf-toast [data-description] {
+  color: var(--text-muted);
+}
+
+[data-sonner-toaster] .kf-toast [data-button] {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 800;
+  transition: transform var(--press) var(--ease-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-sonner-toaster] .kf-toast [data-button]:active { transform: scale(0.97); }
+}
 
 /* ==========================================
    TABLETS (up to 1024px)
