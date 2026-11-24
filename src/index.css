@@ -21,6 +21,7 @@
   --text-dim: #687083;
 
   /* Brand */
+  --brand-ink: #fffdf8;   /* logo colour, sampled from src/assets/kingsfoot.png */
   --accent: #d4ff3a;
   --accent-hover: #e2ff74;
   --accent-ink: #0a0c10;
@@ -78,12 +79,9 @@ body,
   padding: 0;
 }
 
+/* The ambient lights live in <AnimatedBackground /> */
 body {
-  background:
-    radial-gradient(1200px 600px at 85% -10%, rgba(212, 255, 58, 0.06), transparent 60%),
-    radial-gradient(900px 500px at -10% 30%, rgba(255, 77, 109, 0.05), transparent 60%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   overflow-x: hidden;
 }
 
@@ -130,4 +128,43 @@ img {
 @media (prefers-reduced-motion: reduce) {
   @keyframes fade-up { from { opacity: 0; } }
   @keyframes pop-in { from { opacity: 0; } }
+}
+
+/* ==========================================
+   MOTION UTILITIES — drop-in classes for components
+   ========================================== */
+
+/* Single element entering on mount */
+.u-enter {
+  animation: fade-up 300ms var(--ease-out) backwards;
+}
+
+/* Children enter one after another. Non-uniform gaps that shrink,
+   capped so a long list still lands within ~300ms total. */
+.u-stagger > * {
+  animation: fade-up 300ms var(--ease-out) backwards;
+}
+.u-stagger > :nth-child(2) { animation-delay: 50ms; }
+.u-stagger > :nth-child(3) { animation-delay: 90ms; }
+.u-stagger > :nth-child(4) { animation-delay: 120ms; }
+.u-stagger > :nth-child(5) { animation-delay: 145ms; }
+.u-stagger > :nth-child(n + 6) { animation-delay: 165ms; }
+
+/* Press feedback for anything clickable */
+.u-press {
+  transition: transform var(--press) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover lift for cards / containers (real pointers only) */
+.u-lift {
+  transition: transform 250ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .u-press:active:not(:disabled) { transform: scale(0.97); }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .u-lift:hover { transform: translateY(-4px); }
 }

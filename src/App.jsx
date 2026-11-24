@@ -3,6 +3,10 @@ import { Toaster, toast } from 'sonner';
 import './App.css';
 import Cart from './components/Cart';
 import Pay from './components/Pay'; // Import the payment view
+import AnimatedBackground from './components/AnimatedBackground';
+import BrandMark from './components/BrandMark';
+import { STAR_VIEWBOX, STAR_FULL } from './lib/brand';
+import wordmarkUrl from './assets/kingsfoot-wordmark.png';
 import { CartIcon, CheckIcon, PlusIcon } from './components/Icons';
 
 // Stable id per cart line, so the same shirt added twice can be animated out individually
@@ -38,9 +42,15 @@ function App() {
 
   return (
     <div className="app-container">
+      <AnimatedBackground />
       <header className="navbar">
         <div className="logo" onClick={() => setCurrentView('home')}>
-          <h1><span className="logo-mark"><img src="/25775.svg" alt="" /></span> KingsFoot</h1>
+          <h1>
+            <svg className="logo-star" viewBox={STAR_VIEWBOX} aria-hidden="true">
+              <polygon points={STAR_FULL} />
+            </svg>
+            <img className="logo-word" src={wordmarkUrl} alt="KingsFoot" width="1016" height="142" />
+          </h1>
         </div>
         <div className="cart-widget" onClick={() => setCurrentView('cart')}>
           <span className="cart-icon"><CartIcon size={18} /></span>
@@ -57,6 +67,7 @@ function App() {
           <section className="hero">
             <div className="hero-glow" aria-hidden="true" />
             <div className="hero-content">
+              <BrandMark />
               <h2>VÍSTETE COMO DEBE SER</h2>
               <p>Descubre los últimos lanzamientos de la nueva temporada 26/27</p>
             </div>
@@ -68,7 +79,7 @@ function App() {
               <span className="subtitle">Explora nuestra colección</span>
             </div>
             
-            <div className="products-grid">
+            <div className="products-grid u-stagger">
               {MOCK_PRODUCTS.map((product) => (
                 <div key={product.id} className="product-card">
                   <div className="image-container">

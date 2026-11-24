@@ -2,10 +2,7 @@ import { useRef } from 'react';
 import { flushSync } from 'react-dom';
 import './Cart.css';
 import { ArrowLeftIcon, BagIcon, TrashIcon, LockIcon } from './Icons';
-
-const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
-const EASE_IN_OUT = 'cubic-bezier(0.77, 0, 0.175, 1)';
-const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+import { EASE_OUT, EASE_IN_OUT, prefersReducedMotion } from '../lib/motion';
 
 function Cart({ cart, setCart, onBack, onCheckout }) {
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
@@ -66,7 +63,7 @@ function Cart({ cart, setCart, onBack, onCheckout }) {
         <ArrowLeftIcon size={16} /> Volver a la tienda
       </button>
 
-      <div className="cart-content">
+      <div className="cart-content u-stagger">
         <div className="cart-items-section">
           <h2>Tu Carrito de Compra</h2>
           <p className="items-count">Tienes {cart.length} {cart.length === 1 ? 'artículo' : 'artículos'} en tu carrito.</p>
@@ -80,7 +77,7 @@ function Cart({ cart, setCart, onBack, onCheckout }) {
               </button>
             </div>
           ) : (
-            <div className="items-list">
+            <div className="items-list u-stagger">
               {cart.map((item) => (
                 <div
                   key={item.uid}

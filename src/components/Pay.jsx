@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './Pay.css';
 import { AlertIcon, ArrowLeftIcon, CardIcon, CheckIcon, ShieldIcon, TruckIcon } from './Icons';
-
-const EASE_IN_OUT = 'cubic-bezier(0.77, 0, 0.175, 1)';
+import { EASE_IN_OUT } from '../lib/motion';
 
 function Pay({ totalPrice, onBack, onFinish }) {
   // Separate state for each form field
@@ -151,7 +150,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
         <ArrowLeftIcon size={16} /> Volver al carrito
       </button>
 
-      <div className="pay-content">
+      <div className="pay-content u-stagger">
         <div className="pay-form-section">
           <h2>Finalizar Compra</h2>
           <p className="pay-subtitle">Introduce tus datos de envío y pago de forma segura.</p>

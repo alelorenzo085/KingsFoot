@@ -1,0 +1,79 @@
+/* ==========================================
+   AMBIENT BACKGROUND
+   Fixed behind everything (z-index -1 paints above the canvas background).
+   Each light is its own composited layer; only transform + opacity animate.
+   Softness comes from the gradient itself — no filter: blur().
+   ========================================== */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-light {
+  position: absolute;
+  width: 70vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  /* Long, non-multiple periods so the combined pattern never visibly repeats.
+     Plain ease-in-out + alternate = a sine-like breath; a strong curve would
+     hang at each end and then dart. */
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Top-right — the brand light */
+.ambient-light--lime {
+  top: -35vmax;
+  right: -20vmax;
+  background: radial-gradient(closest-side, rgba(212, 255, 58, 0.075), transparent);
+  animation-name: ambient-drift-a;
+  animation-duration: 26s;
+}
+
+/* Mid-left — warm counter-light */
+.ambient-light--hot {
+  top: 10vh;
+  left: -30vmax;
+  width: 60vmax;
+  background: radial-gradient(closest-side, rgba(255, 77, 109, 0.06), transparent);
+  animation-name: ambient-drift-b;
+  animation-duration: 33s;
+}
+
+/* Bottom-centre — cool fill so the lower page isn't flat */
+.ambient-light--mint {
+  bottom: -40vmax;
+  left: 25%;
+  width: 55vmax;
+  background: radial-gradient(closest-side, rgba(61, 220, 151, 0.04), transparent);
+  animation-name: ambient-drift-c;
+  animation-duration: 41s;
+}
+
+@keyframes ambient-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1);          opacity: 0.8; }
+  to   { transform: translate3d(-8vmax, 6vmax, 0) scale(1.1); opacity: 1; }
+}
+
+@keyframes ambient-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.05);       opacity: 1; }
+  to   { transform: translate3d(10vmax, -5vmax, 0) scale(0.95); opacity: 0.7; }
+}
+
+@keyframes ambient-drift-c {
+  from { transform: translate3d(0, 0, 0) scale(1);          opacity: 0.7; }
+  to   { transform: translate3d(-12vmax, -4vmax, 0) scale(1.15); opacity: 1; }
+}
+
+/* Decoration with no informational value → the lights stay, the drift goes */
+@media (prefers-reduced-motion: reduce) {
+  .ambient-light {
+    animation: none;
+    will-change: auto;
+  }
+}

@@ -33,30 +33,26 @@
   transition: opacity 150ms ease;
 }
 
+/* Horizontal lockup of the brand logo: star + wordmark, off-white on dark.
+   Fixed heights + intrinsic ratios → no layout shift while the PNG loads.
+   No motion here: the navbar is seen on every screen (the hero logo animates). */
 .logo h1 {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 400;
-  letter-spacing: 1.5px;
+  gap: 12px;
   line-height: 1;
-  color: var(--text);
 }
 
-.logo h1 span {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft), 0 0 24px var(--accent-glow);
+.logo-star {
+  height: 30px;
+  width: auto;
+  aspect-ratio: 820 / 428;
+  fill: var(--brand-ink);
 }
-.logo h1 span img {
-  width: 26px;
-  height: 26px;
+
+.logo-word {
+  height: 17px;
+  width: auto;
 }
 
 .cart-widget {
@@ -206,17 +202,26 @@
 }
 
 .hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 980px;
 }
 
-/* Hero entrance: badge → headline → copy, one motion with short overlaps */
+/* Logo first, then the badge (a ::before, so it needs explicit order) */
+.hero-content::before { order: 1; }
+.hero-content h2 { order: 2; }
+.hero-content p { order: 3; }
+
+/* Hero entrance: logo (0–600ms) → badge → headline → copy, short overlaps */
 .hero-content::before,
 .hero-content h2,
 .hero-content p {
   animation: fade-up 500ms var(--ease-out) backwards;
 }
-.hero-content h2 { animation-delay: 60ms; }
-.hero-content p { animation-delay: 140ms; }
+.hero-content::before { animation-delay: 200ms; }
+.hero-content h2 { animation-delay: 260ms; }
+.hero-content p { animation-delay: 340ms; }
 
 .hero-content::before {
   content: 'Temporada 26/27';
@@ -320,14 +325,8 @@
     transform 250ms var(--ease-out),
     border-color 200ms ease,
     box-shadow 250ms var(--ease-out);
-  /* Stagger: non-uniform delays, the whole group lands within ~470ms */
-  animation: fade-up 300ms var(--ease-out) backwards;
+  /* Entrance stagger comes from .u-stagger on .products-grid */
 }
-.product-card:nth-child(2) { animation-delay: 50ms; }
-.product-card:nth-child(3) { animation-delay: 90ms; }
-.product-card:nth-child(4) { animation-delay: 120ms; }
-.product-card:nth-child(5) { animation-delay: 145ms; }
-.product-card:nth-child(6) { animation-delay: 165ms; }
 
 .image-container {
   position: relative;
@@ -521,9 +520,9 @@
 @media (max-width: 600px) {
   .navbar { padding: 0.7rem 16px; }
 
-  .logo h1 { font-size: 1.6rem; gap: 8px; }
-  .logo h1 span { width: 32px; height: 32px; }
-  .logo h1 span img { width: 22px; height: 22px; }
+  .logo h1 { gap: 8px; }
+  .logo-star { height: 24px; }
+  .logo-word { height: 13px; }
 
   .cart-widget { padding: 0.35rem 0.85rem 0.35rem 0.35rem; gap: 8px; }
   .cart-icon { width: 30px; height: 30px; }

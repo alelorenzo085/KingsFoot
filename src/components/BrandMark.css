@@ -1,0 +1,114 @@
+/* ==========================================
+   BRAND MARK (hero logo)
+   Box size is fixed by aspect-ratio before anything loads → CLS 0.
+   Geometry below is in the SVG viewBox (496 600 1016 612), as % of the box.
+   ========================================== */
+.brand-mark {
+  position: relative;
+  width: clamp(170px, 26vw, 300px);
+  aspect-ratio: 1016 / 612;
+  margin: 0 auto 1.75rem;
+}
+
+.brand-mark__tilt {
+  position: absolute;
+  inset: 0;
+}
+
+.brand-mark__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: var(--brand-ink);
+  overflow: visible;
+}
+
+/* ---- Shooting-star entrance ----
+   The star flies in from the right. Each trail scales from its own TIP,
+   so the tail stays put while its base travels left with the star.
+   Start scales are computed so the base follows the star exactly:
+   star offset 140 units = 13.8% of the box width;
+   top trail 548 units long → (548 − 140) / 548 = 0.745;
+   bottom trail 439 units → (439 − 140) / 439 = 0.68.
+   Same duration and curve for all three, so they move as one. */
+.brand-mark__star {
+  animation: brand-star-in 600ms var(--ease-out) backwards;
+}
+
+.brand-mark__trail {
+  animation: 600ms var(--ease-out) backwards;
+}
+.brand-mark__trail--top {
+  transform-origin: 90.2% 26.8%;
+  animation-name: brand-trail-top-in;
+}
+.brand-mark__trail--bottom {
+  transform-origin: 75.4% 45.4%;
+  animation-name: brand-trail-bottom-in;
+}
+
+@keyframes brand-star-in {
+  from { opacity: 0; transform: translateX(13.8%); }
+}
+@keyframes brand-trail-top-in {
+  from { opacity: 0; transform: scaleX(0.745); }
+}
+@keyframes brand-trail-bottom-in {
+  from { opacity: 0; transform: scaleX(0.68); }
+}
+
+/* ---- Wordmark: lands just after the star ---- */
+.brand-mark__word {
+  position: absolute;
+  left: 0;
+  top: 76.8%;
+  width: 100%;
+  height: auto;
+  animation: fade-up 400ms var(--ease-out) 120ms backwards;
+}
+
+/* ---- One specular pass across the wordmark, then never again ----
+   The mask stays still; only the band moves → compositor-only. */
+.brand-mark__shine {
+  position: absolute;
+  left: 0;
+  top: 76.8%;
+  width: 100%;
+  height: 23.2%;
+  overflow: hidden;
+  pointer-events: none;
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.brand-mark__shine-band {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 35%,
+    rgba(212, 255, 58, 0.85) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  animation: brand-shine 900ms var(--ease-in-out) 650ms both;
+}
+
+@keyframes brand-shine {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* Reduced motion: the logo just fades in. No travel, no shine, no tilt (JS-gated). */
+@media (prefers-reduced-motion: reduce) {
+  .brand-mark__star,
+  .brand-mark__trail {
+    animation-name: fade;
+  }
+  .brand-mark__shine {
+    display: none;
+  }
+}
