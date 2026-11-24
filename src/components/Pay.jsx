@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Pay.css';
+import { AlertIcon, ArrowLeftIcon, CardIcon, CheckIcon, ShieldIcon, TruckIcon } from './Icons';
 
 function Pay({ totalPrice, onBack, onFinish }) {
   // Separate state for each form field
@@ -99,12 +100,12 @@ function Pay({ totalPrice, onBack, onFinish }) {
     setErrorMsg('');
 
     if (!validateExpiry(expiry)) {
-      setErrorMsg('❌ Error: La tarjeta está caducada o la fecha introducida es anterior a la actual.');
+      setErrorMsg('La tarjeta está caducada o la fecha introducida es anterior a la actual.');
       return;
     }
 
     if (!isValidLuhn(cardNumber)) {
-      setErrorMsg('❌ Error: El número de tarjeta introducido es falso o inválido.');
+      setErrorMsg('El número de tarjeta introducido es falso o inválido.');
       return;
     }
 
@@ -123,7 +124,8 @@ function Pay({ totalPrice, onBack, onFinish }) {
     return (
       <div className="pay-container success-view">
         <div className="success-card">
-          <h2>¡Pago completado con éxito! 🎉</h2>
+          <span className="success-icon"><CheckIcon size={36} strokeWidth={2.5} /></span>
+          <h2>¡Pago completado con éxito!</h2>
           <p>Tu tarjeta ha sido verificada correctamente. ¡Pedido en camino!</p>
           <p className="redirect-text">Redirigiendo al inicio...</p>
         </div>
@@ -134,7 +136,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
   return (
     <div className="pay-container">
       <button className="back-button" onClick={onBack}>
-        &larr; Volver al carrito
+        <ArrowLeftIcon size={16} /> Volver al carrito
       </button>
 
       <div className="pay-content">
@@ -142,12 +144,17 @@ function Pay({ totalPrice, onBack, onFinish }) {
           <h2>Finalizar Compra</h2>
           <p className="pay-subtitle">Introduce tus datos de envío y pago de forma segura.</p>
 
-          {errorMsg && <div className="error-alert">{errorMsg}</div>}
+          {errorMsg && (
+            <div className="error-alert" role="alert">
+              <AlertIcon size={20} />
+              <span>{errorMsg}</span>
+            </div>
+          )}
 
           <form onSubmit={handlePayment} className="payment-form">
             
             {/* BLOCK 1: SHIPPING INFORMATION */}
-            <div className="form-section-title">📦 Shipping Information</div>
+            <div className="form-section-title"><TruckIcon size={18} /> Datos de envío</div>
 
             <div className="form-group">
               <label>Nombre completo</label>
@@ -229,7 +236,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
             </div>
 
             {/* BLOCK 2: PAYMENT INFORMATION */}
-            <div className="form-section-title">💳 Payment Details</div>
+            <div className="form-section-title"><CardIcon size={18} /> Datos de pago</div>
 
             <div className="form-group">
               <label>Nombre en la tarjeta</label>
@@ -298,7 +305,7 @@ function Pay({ totalPrice, onBack, onFinish }) {
              {totalPrice}€
            </div>
            <div className="secure-badge">
-             🔒 Validación Luhn & SSL Activos
+             <ShieldIcon size={18} /> Validación Luhn & SSL activos
            </div>
         </div>
       </div>

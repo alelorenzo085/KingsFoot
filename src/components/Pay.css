@@ -173,6 +173,10 @@
 }
 
 .secure-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding: 0.8rem;
   border-radius: 12px;
   background: var(--success-soft);
@@ -207,8 +211,7 @@
   animation: pop-in 0.6s var(--ease) both;
 }
 
-.success-card::before {
-  content: '✓';
+.success-icon {
   display: grid;
   place-items: center;
   width: 76px;
@@ -217,8 +220,6 @@
   border-radius: 50%;
   background: var(--success);
   color: var(--accent-ink);
-  font-size: 2.2rem;
-  font-weight: 800;
   box-shadow: 0 0 0 8px var(--success-soft), 0 0 40px rgba(61, 220, 151, 0.45);
 }
 
@@ -254,6 +255,9 @@
    ERROR ALERT
    ========================================== */
 .error-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
   margin-bottom: 1.5rem;
   padding: 1rem 1.1rem;
   border-radius: 12px;
@@ -264,6 +268,10 @@
   font-size: 0.9rem;
   font-weight: 600;
   animation: fade-up 0.35s var(--ease) both;
+}
+.error-alert svg {
+  flex-shrink: 0;
+  color: var(--danger);
 }
 
 /* ==========================================

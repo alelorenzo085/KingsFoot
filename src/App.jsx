@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import Cart from './components/Cart';
 import Pay from './components/Pay'; // Import the payment view
+import { CartIcon, PlusIcon } from './components/Icons';
 
 const MOCK_PRODUCTS = [
   { id: 1, name: 'Real Madrid FC 26/27 Local', price: 95, tag: 'TOP VENTAS', image: 'https://us.shop.realmadrid.com/cdn/shop/files/RMCFMZ0941_01-LIGA.jpg?v=1779891682&width=1920' },
@@ -27,10 +28,10 @@ function App() {
     <div className="app-container">
       <header className="navbar">
         <div className="logo" onClick={() => setCurrentView('home')}>
-          <h1><span>⚽</span> KingsFoot</h1>
+          <h1><span className="logo-mark"><img src="/25775.svg" alt="" /></span> KingsFoot</h1>
         </div>
         <div className="cart-widget" onClick={() => setCurrentView('cart')}>
-          <span className="cart-icon">🛒</span>
+          <span className="cart-icon"><CartIcon size={18} /></span>
           <div className="cart-info">
             <span className="cart-count">{cart.length} {cart.length === 1 ? 'artículo' : 'artículos'}</span>
             <span className="cart-total">{totalPrice}€</span>
@@ -69,7 +70,7 @@ function App() {
                         className="add-button"
                         onClick={() => addToCart(product)}
                       >
-                        Añadir +
+                        Añadir <PlusIcon size={16} strokeWidth={2.5} />
                       </button>
                     </div>
                   </div>

@@ -1,5 +1,5 @@
-import React from 'react';
 import './Cart.css';
+import { ArrowLeftIcon, BagIcon, TrashIcon, LockIcon } from './Icons';
 
 function Cart({ cart, setCart, onBack, onCheckout }) {
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
@@ -12,7 +12,7 @@ function Cart({ cart, setCart, onBack, onCheckout }) {
   return (
     <div className="cart-page-container">
       <button className="back-button" onClick={onBack}>
-        &larr; Volver a la tienda
+        <ArrowLeftIcon size={16} /> Volver a la tienda
       </button>
 
       <div className="cart-content">
@@ -22,7 +22,7 @@ function Cart({ cart, setCart, onBack, onCheckout }) {
 
           {cart.length === 0 ? (
             <div className="empty-cart">
-              <span className="empty-icon">😢</span>
+              <span className="empty-icon"><BagIcon size={40} strokeWidth={1.6} /></span>
               <h3>Tu carrito está vacío</h3>
               <button className="continue-shopping" onClick={onBack}>
                 Ver camisetas
@@ -41,8 +41,9 @@ function Cart({ cart, setCart, onBack, onCheckout }) {
                     className="remove-button" 
                     onClick={() => removeFromCart(index)}
                     title="Eliminar artículo"
+                    aria-label="Eliminar artículo"
                   >
-                    🗑️
+                    <TrashIcon size={18} />
                   </button>
                 </div>
               ))}
@@ -67,7 +68,7 @@ function Cart({ cart, setCart, onBack, onCheckout }) {
               <span>{totalPrice}€</span>
             </div>
             <button className="checkout-button" onClick={onCheckout}>
-              Pagar ahora 🔒
+              <LockIcon size={18} /> Pagar ahora
             </button>
           </div>
         )}

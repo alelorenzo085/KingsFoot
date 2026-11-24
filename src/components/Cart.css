@@ -78,7 +78,7 @@
   border-radius: 50%;
   background: var(--surface-2);
   border: 1px solid var(--border);
-  font-size: 2.8rem;
+  color: var(--accent);
 }
 .empty-cart h3 {
   margin-bottom: 1.5rem;
@@ -162,13 +162,14 @@
   border-radius: 50%;
   border: 1px solid var(--border);
   background: transparent;
-  font-size: 1.05rem;
+  color: var(--text-muted);
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
 }
 .remove-button:hover {
   background: var(--danger-soft);
   border-color: rgba(255, 92, 108, 0.5);
+  color: var(--danger);
   transform: scale(1.06);
 }
 
@@ -229,6 +230,10 @@
 }
 
 .checkout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   width: 100%;
   margin-top: 1.75rem;
   padding: 1.1rem;
