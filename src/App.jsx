@@ -15,7 +15,7 @@ let nextUid = 1;
 const MOCK_PRODUCTS = [
   { id: 1, name: 'Real Madrid FC 26/27 Local', price: 95, tag: 'TOP VENTAS', image: 'https://us.shop.realmadrid.com/cdn/shop/files/RMCFMZ0941_01-LIGA.jpg?v=1779891682&width=1920' },
   { id: 2, name: 'FC Barcelona FC 26/27 Local', price: 95, tag: 'NUEVO', image: 'https://cdn.media.amplience.net/i/frasersdev/37727608_o?fmt=auto&upscale=false&w=1200&h=1200&v=20260615181158&sm=scaleFit&$h-ttl$' },
-  { id: 3, name: 'Selección Española Mundial 2026', price: 110, tag: 'EDICIÓN LIMITADA', image: 'https://clockerslab.com/storage/2026/07/ChatGPT-Image-21-jul-2026_-22_52_08.webp' },
+  { id: 3, name: 'Selección Española Mundial 2026', price: 110, tag: 'EDICIÓN LIMITADA', image: 'https://camisetasfutbolymas.com/wp-content/uploads/2026/07/ChatGPTImage25jul2026_10_07_53.webp' },
   { id: 4, name: 'Manchester City FC 26/27', price: 90, tag: '', image: 'https://media.futbolmania.com/media/catalog/product/cache/1/image/0f330055bc18e2dda592b4a7c3a0ea22/7/8/784326-01_camiseta-color-azul-puma-manchester-city-26-27_1_completa-frontal.jpg' },
   { id: 5, name: 'Arsenal FC 26/27 Local', price: 85, tag: 'NUEVO', image: 'https://assets.footlocker.com/is/image/FLDM/317140335630_07?fmt=webp-alpha&bfc=on&wid=500&hei=500' },
   { id: 6, name: 'Bayern Munich FC 26/27', price: 80, tag: '', image: 'https://img.fcbayern.com/image/upload/q_auto,f_auto/w_800,h_1067,c_pad/eCommerce/produkte/54804_4' },
