@@ -123,15 +123,71 @@
     url('https://images.unsplash.com/photo-1518605368461-1e125222058c?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
 }
 
-/* Gradient + glow overlay */
+/* Darkening overlay over the photo */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 55%, rgba(212, 255, 58, 0.16), transparent 70%),
     linear-gradient(180deg, rgba(10, 12, 16, 0.55) 0%, rgba(10, 12, 16, 0.78) 60%, var(--bg) 100%);
+}
+
+/* Ambient stadium-light glow: two blobs drifting on different, non-multiple
+   periods so the combined pattern never visibly loops.
+   transform + opacity only → runs on the compositor, no repaint per frame. */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* after ::before in DOM order → paints above the overlay */
+  pointer-events: none;
+}
+
+.hero-glow::before,
+.hero-glow::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+/* Lime — the main light, centred behind the headline */
+.hero-glow::before {
+  left: 20%;
+  top: 25%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(closest-side, rgba(212, 255, 58, 0.18), transparent);
+  animation: glow-drift-a 14s ease-in-out infinite alternate;
+}
+
+/* Hot pink — a faint counter-light, smaller and slower */
+.hero-glow::after {
+  left: 50%;
+  top: 10%;
+  width: 45%;
+  height: 45%;
+  background: radial-gradient(closest-side, rgba(255, 77, 109, 0.1), transparent);
+  animation: glow-drift-b 19s ease-in-out infinite alternate;
+}
+
+@keyframes glow-drift-a {
+  from { transform: translate(-8%, 4%) scale(1);    opacity: 0.85; }
+  to   { transform: translate(8%, -4%) scale(1.12); opacity: 1; }
+}
+
+@keyframes glow-drift-b {
+  from { transform: translate(10%, 6%) scale(1.1); opacity: 1; }
+  to   { transform: translate(-20%, -4%) scale(0.95); opacity: 0.6; }
+}
+
+/* Pure decoration with no informational value → hold it still */
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow::before,
+  .hero-glow::after {
+    animation: none;
+    will-change: auto;
+  }
 }
 
 /* Pitch lines decoration */

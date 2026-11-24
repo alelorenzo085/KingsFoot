@@ -55,6 +55,7 @@ function App() {
       {currentView === 'home' && (
         <>
           <section className="hero">
+            <div className="hero-glow" aria-hidden="true" />
             <div className="hero-content">
               <h2>VÍSTETE COMO DEBE SER</h2>
               <p>Descubre los últimos lanzamientos de la nueva temporada 26/27</p>
